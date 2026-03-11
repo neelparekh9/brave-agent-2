@@ -18,7 +18,7 @@ try {
 }
 
 app.post('/api/next-turn', async (req, res) => {
-    const { nodeId } = req.body;
+    const { nodeId, agentType } = req.body;
     if (!nodeId) {
         return res.status(400).json({ error: 'nodeId is required' });
     }
@@ -32,10 +32,11 @@ app.post('/api/next-turn', async (req, res) => {
     let audioBase64 = null;
 
     if (textToSpeak && openai) {
+        const selectedVoice = agentType === 'female' ? 'nova' : 'onyx';
         try {
             const mp3 = await openai.audio.speech.create({
                 model: "tts-1",
-                voice: "onyx",
+                voice: selectedVoice,
                 input: textToSpeak,
             });
             const buffer = Buffer.from(await mp3.arrayBuffer());

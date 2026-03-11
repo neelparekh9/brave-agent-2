@@ -17,7 +17,10 @@ const ChatInterface = () => {
       fetch(`${apiUrl}/api/next-turn`, {
         method: "POST",
         headers: { "Content-Type": "application/json" },
-        body: JSON.stringify({ nodeId: currentNode })
+        body: JSON.stringify({
+          nodeId: currentNode,
+          agentType: localStorage.getItem("agentType") || "male"
+        })
       })
         .then((res) => res.json())
         .then((data) => {
