@@ -11,7 +11,7 @@ module.exports = {
   },
 
   intro: {
-    agentResponse: "You are not alone! This app or I am here to help you navigate through hard times, and what I know for sure is that we are most healthy and happy when our relationships are healthy and happy. But I know sometimes it is hard, in fact sometimes it feels impossible. Welcome to the Safe Conversations app. Together, we are going to find solutions to your concerns.",
+    agentResponse: "You are not alone! I am here to help you navigate through hard times, and what I know for sure is that we are most healthy and happy when our relationships are healthy and happy. But I know sometimes it is hard, in fact sometimes it feels impossible. Welcome to the Brave Dialog app. Together, we are going to find solutions to your concerns.",
     nextOptions: [{ text: "Where do I start???", next: "zeroNegativity" }],
     animation: ["handup", "Idle"]
   },
