@@ -1,0 +1,13 @@
+Flask
+Flask-Cors
+gunicorn
+openai
+langchain==0.2.14
+langchain-community==0.2.12
+langchain-openai==0.1.22
+langchain-core==0.2.33
+networkx
+python-dotenv
+requests
+regex
+tiktoken
