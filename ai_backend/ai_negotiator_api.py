@@ -1,7 +1,7 @@
-# ai_negotiator_api.py
-
+import os
 from flask import Flask, request, jsonify
-from negotiation_bot_kg import get_memory, conversation, extract_preferences, extract_structured_offer, get_dynamic_context_from_kg, NegotiationKnowledgeGraph, INITIAL_SUBJECTIVE_LIMIT, TRUE_MAX_SALARY
+from negotiation_kg import get_memory, conversation, extract_preferences, extract_structured_offer, get_dynamic_context_from_kg, NegotiationKnowledgeGraph, INITIAL_BUDGET_LIMIT, MAX_BUDGET, INITIAL_TIMELINE_MONTHS, MAX_TIMELINE_MONTHS
+from concurrent.futures import ThreadPoolExecutor, TimeoutError as FuturesTimeoutError
 import datetime
 import logging
 import json
