@@ -11,7 +11,10 @@ const ChatInterface = () => {
 
   useEffect(() => {
     if (currentNode && hasStarted) {
-      fetch("http://localhost:3001/api/next-turn", {
+      const baseUrl = process.env.REACT_APP_BACKEND_URL || "http://localhost:3001";
+      const apiUrl = baseUrl.startsWith('http') ? baseUrl : `https://${baseUrl}`;
+
+      fetch(`${apiUrl}/api/next-turn`, {
         method: "POST",
         headers: { "Content-Type": "application/json" },
         body: JSON.stringify({ nodeId: currentNode })
