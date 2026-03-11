@@ -34,7 +34,6 @@ services:
   - type: web
     name: enhanced-agent-frontend
     env: static
-    region: ohio
     plan: free
     rootDir: frontend
     buildCommand: "rm -rf node_modules package-lock.json && npm install && npm run build"
