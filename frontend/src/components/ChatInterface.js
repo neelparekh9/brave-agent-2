@@ -6,11 +6,10 @@ const ChatInterface = () => {
   const [chatHistory, setChatHistory] = useState([]);
   const [currentNode, setCurrentNode] = useState("initial");
   const [currentNodeData, setCurrentNodeData] = useState(null);
-  const [hasStarted, setHasStarted] = useState(false);
   const chatBoxRef = useRef(null);
 
   useEffect(() => {
-    if (currentNode && hasStarted) {
+    if (currentNode) {
       const baseUrl = process.env.REACT_APP_BACKEND_URL || "http://localhost:3001";
       const apiUrl = baseUrl.startsWith('http') ? baseUrl : `https://${baseUrl}`;
 
@@ -40,7 +39,7 @@ const ChatInterface = () => {
         })
         .catch((err) => console.error("Fetch error:", err));
     }
-  }, [currentNode, hasStarted]);
+  }, [currentNode]);
 
   // Auto-scroll to bottom of chat
   useEffect(() => {
@@ -54,22 +53,11 @@ const ChatInterface = () => {
       setChatHistory([]);
       setCurrentNode("initial");
       setCurrentNodeData(null);
-      setHasStarted(false);
       return;
     }
     setChatHistory((prev) => [...prev, { sender: "user", text }]);
     setCurrentNode(nextNode);
   };
-
-  if (!hasStarted) {
-    return (
-      <div className="chat-container start-screen">
-        <button className="start-btn" onClick={() => setHasStarted(true)}>
-          Start Conversation
-        </button>
-      </div>
-    );
-  }
 
   return (
     <div className="chat-container">
