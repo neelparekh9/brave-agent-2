@@ -24,6 +24,24 @@
     position: relative;
 }
 
+.start-screen {
+    align-items: center;
+    justify-content: center;
+}
+
+.start-btn {
+    font-size: 24px;
+    padding: 20px 40px;
+    border-radius: 50px;
+    background: #007bff;
+    box-shadow: 0px 4px 15px rgba(0, 123, 255, 0.4);
+}
+
+.start-btn:hover {
+    background: #0056b3;
+    transform: scale(1.05);
+}
+
 /* Middle Section: Avatar Left, Chat Right */
 .main-content {
     display: flex;
