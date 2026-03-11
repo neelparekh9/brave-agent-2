@@ -1,6 +1,8 @@
 import os
 from flask import Flask, request, jsonify
-from negotiation_kg import extract_preferences, extract_structured_offer, get_dynamic_context_from_kg, NegotiationKnowledgeGraph, INITIAL_BUDGET_LIMIT, MAX_BUDGET, INITIAL_TIMELINE_MONTHS, MAX_TIMELINE_MONTHS
+from negotiation_kg import NegotiationKnowledgeGraph
+from negotiation_bot_kg import get_memory, conversation, extract_preferences, extract_structured_offer, get_dynamic_context_from_kg, INITIAL_BUDGET_LIMIT, MAX_BUDGET, INITIAL_TIMELINE_MONTHS, MAX_TIMELINE_MONTHS
+from concurrent.futures import ThreadPoolExecutor, TimeoutError as FuturesTimeoutError
 import datetime
 import logging
 import json
@@ -88,10 +90,10 @@ class NegotiationSessionState:
         }
 
         try:
-            # Mocking the AI response to bypass the missing module error on Render
-            class MockResult:
-                content = "You are not alone! This app or I am here to help you navigate through hard times. Let's start with a deep breath."
-            result = MockResult()
+            result = conversation.invoke(
+                inputs,
+                config={"configurable": {"session_id": self.session_id}}
+            )
             reply = result.content.strip()
             
             self.kg.add_turn(user_input, reply, self.subjective_limit)
