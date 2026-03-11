@@ -31,10 +31,8 @@ services:
       # REMINDER: OPENAI_API_KEY must be added manually in the Render Dashboard
 
   # 3. Virtual Agent React Frontend
-  - type: web
+  - type: static_site
     name: enhanced-agent-frontend
-    env: static
-    plan: free
     rootDir: frontend
     buildCommand: "rm -rf node_modules package-lock.json && npm install && npm run build"
     staticPublishPath: build
