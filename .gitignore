@@ -1,0 +1,17 @@
+# Node
+node_modules/
+build/
+.env
+
+# Python
+__pycache__/
+*.py[cod]
+*$py.class
+venv/
+.venv/
+env/
+.env/
+*.log
+
+# OS
+.DS_Store

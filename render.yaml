@@ -1,0 +1,47 @@
+services:
+  # 1. AI Negotiation Python Backend
+  - type: web
+    name: enhanced-agent-ai-backend
+    env: python
+    region: ohio
+    plan: free
+    rootDir: ai_backend
+    buildCommand: "pip install -r requirements.txt"
+    startCommand: "gunicorn ai_negotiator_api_cors:app --bind 0.0.0.0:10000"
+    envVars:
+      - key: PYTHON_VERSION
+        value: 3.11.0
+      - key: FLASK_ENV
+        value: production
+      # REMINDER: OPENAI_API_KEY must be added manually in the Render Dashboard
+
+  # 2. Virtual Agent Node.js Audio Backend 
+  - type: web
+    name: enhanced-agent-node-backend
+    env: node
+    region: ohio
+    plan: free
+    rootDir: backend
+    # Force a clean install to avoid Architecture mismatch (Mac vs Linux binaries)
+    buildCommand: "rm -rf node_modules package-lock.json && npm install"
+    startCommand: "npm start"
+    envVars:
+      - key: NODE_VERSION
+        value: ~20.0.0
+      # REMINDER: OPENAI_API_KEY must be added manually in the Render Dashboard
+
+  # 3. Virtual Agent React Frontend
+  - type: web
+    name: enhanced-agent-frontend
+    env: static
+    region: ohio
+    plan: free
+    rootDir: frontend
+    buildCommand: "rm -rf node_modules package-lock.json && npm install && npm run build"
+    staticPublishPath: build
+    envVars:
+      - key: REACT_APP_BACKEND_URL
+        fromService:
+          type: web
+          name: enhanced-agent-node-backend
+          property: host
